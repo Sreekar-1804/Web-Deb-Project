@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Search Professionals {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Search Professionals</h1>
+    <form method="POST" action="{{ url_for('search_professionals') }}">
+        <div class="form-group">
+            <label for="query">Enter Name or Email</label>
+            <input type="text" name="query" id="query" class="form-control" placeholder="e.g., John Doe, john@example.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+</div>
+{% endblock %}

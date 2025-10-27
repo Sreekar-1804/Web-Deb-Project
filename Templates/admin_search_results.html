@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Professional Search Results {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Search Results for "{{ query }}"</h1>
+    {% if professionals %}
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for professional in professionals %}
+                <tr>
+                    <td>{{ professional.username }}</td>
+                    <td>{{ professional.email }}</td>
+                    <td>{{ 'Blocked' if not professional.approved else 'Active' }}</td>
+                    <td>
+                        {% if professional.approved %}
+                            <form method="POST" action="{{ url_for('block_professional', user_id=professional.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Block</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{{ url_for('unblock_professional', user_id=professional.id) }}">
+                                <button type="submit" class="btn btn-success btn-sm">Unblock</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center">No professionals found matching your query.</p>
+    {% endif %}
+</div>
+{% endblock %}

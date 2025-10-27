@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Login - Household Services {% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Login As Existing User</h1>
+<div>
+    <form action="/login" method="post" style="text-align: center;">
+        <label for="email">email</label>
+        <input name="email" type="email" id="email" required >
+        <br>
+        <br>
+        <label for="password">password</label>
+        <input name="password" type="password" id ="password" minlength="8" required>
+        <br>
+        <br>
+        <input type="submit" id="submit" value="login">
+    </form>
+{% endblock %}

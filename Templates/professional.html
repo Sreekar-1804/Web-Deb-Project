@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Professional Regestration {% endblock %}
+{% block content %}
+    <h2 style="text-align: center;">Register as a Professional</h2>
+    <form action="{{ url_for('professional') }}" method="POST" style="text-align: center;">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="contact_no">Contact Number:</label><br>
+        <input type="text" id="contact_no" name="contact_no" required minlength="10" maxlength="10"><br><br>
+
+        <label for="work_type">Work Type:</label><br>
+        <select class="form-select">
+            <option id="full time">full time</option>
+            <option id="part time">part time</option>
+        </select><br><Br>
+
+
+        <label for="address">Address:</label>
+        <input type="text id" id="address" name="address" style="box-sizing: content-box;" required><br><br>
+
+        <lable for="services">Choose Your Service:</lable><br>
+        <select type="form-select" id="services" name="services" >
+            <option value="A/C">A/C</option>
+            <option value="Television">Television</option>
+            <option value="Washing Machine">Washing Machine</option>
+            <option value="House Cleaning">House Cleaning</option> 
+        <br>
+
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}

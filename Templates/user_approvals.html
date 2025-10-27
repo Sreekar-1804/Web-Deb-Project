@@ -1,0 +1,35 @@
+<!-- templates/user_approvals.html -->
+{% extends 'base.html' %}
+{% block title %}User Approvals{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Pending Professional Approvals</h1>
+    {% if pending_professionals %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in pending_professionals %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <form action="{{ url_for('approve_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No pending approvals.</p>
+    {% endif %}
+</div>
+{% endblock %}

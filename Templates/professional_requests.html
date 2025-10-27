@@ -1,0 +1,36 @@
+<!-- templates/professional_requests.html -->
+{% extends 'base.html' %}
+{% block title %}Service Requests{% endblock %}
+
+{% block content %}
+<div class="mt-5">
+    <h3>Pending Service Requests</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Service</th>
+                <th>Date Requested</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in pending_requests %}
+            <tr>
+                <td>{{ request.user.username }}</td>
+                <td>{{ request.service.service_name }}</td>
+                <td>{{ request.date_requested }}</td>
+                <td>
+                    <form action="{{ url_for('professional_respond_request') }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="booking_id" value="{{ request.id }}">
+                        <button type="submit" name="action" value="accept" class="btn btn-success btn-sm">Accept</button>
+                        <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %} Manage Permissions {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Manage Permissions</h1>
+
+    <!-- Customers Section -->
+    <div class="mt-5">
+        <h3>Customers</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                <tr>
+                    <td>301</td>
+                    <td>Jane Smith</td>
+                    <td>jane@example.com</td>
+                    <td>
+                        <button class="btn btn-info btn-sm">Promote to Professional</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Professionals Section -->
+    <div class="mt-5">
+        <h3>Professionals</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                <tr>
+                    <td>201</td>
+                    <td>Mary Johnson</td>
+                    <td>mary@example.com</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Demote to Customer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

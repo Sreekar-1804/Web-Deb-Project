@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: #0044cc;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #002080;
+            border-radius: 4px;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffdd57;
+        }
+
+        .navbar .menu {
+            display: flex;
+        }
+
+        .navbar .menu a {
+            margin-left: 10px;
+        }
+
+        .navbar .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .search-container input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .navbar .search-container button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            background-color: #ffdd57;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #0044cc;
+        }
+
+        .navbar .search-container button:hover {
+            background-color: #e6c200;
+        }
+
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('home') }}" style="color: #e6c200;">A-Z Household Services</a>
+        </div>
+    
+        <div class="menu">
+            <a href="{{ url_for('home') }}">Home</a>
+    
+            {% if session.get('role') == 'customer' %}
+                <a href="{{ url_for('customer_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('customer_reports') }}">My Reports</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% elif session.get('role') == 'professional' %}
+                <a href="{{ url_for('professional_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('professional_reports') }}">My Reports</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% elif session.get('role') == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('admin_reports') }}">Reports</a>
+                <a href="{{ url_for('admin_users') }}">Users Info</a>
+                <a href="{{ url_for('admin_services') }}">Manage Services</a>
+                <a href="{{ url_for('add_service') }}">Add Service</a>
+                <a href="{{ url_for('manage_users') }}" class="btn btn-primary">Manage Users</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Sign Up</a>
+            {% endif %}
+        </div>
+    
+        {% if session.get('role') in ['customer', 'professional'] %}
+            <div class="search-container">
+                <form action="{{ url_for('search') }}" method="GET">
+                    <input type="text" placeholder="Search services..." name="search">
+                    <button type="submit">Search</button>
+                </form>
+                
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

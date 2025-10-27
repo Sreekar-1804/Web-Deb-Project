@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %} Admin Dashboard {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Admin Dashboard</h1>
+
+    <!-- Metrics Section -->
+    <div class="row mt-4 text-center">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total Customers</p>
+                    <h3>{{ total_customers }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total Professionals</p>
+                    <h3>{{ total_professionals }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total Services</p>
+                    <h3>{{ total_services }}</h3>  
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total Earnings</p>
+                    <h3>Rs.{{ total_earnings }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Approvals -->
+    <div class="mt-5">
+        <h3>Pending Approvals</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Professional</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for professional in pending_approvals %}
+                <tr>
+                    <td>{{ professional.username }}</td>
+                    <td>{{ professional.email }}</td>
+                    <td>
+                        <form action="{{ url_for('approve_user', user_id=professional.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                        </form>
+                        <form action="{{ url_for('reject_user', user_id=professional.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Service Requests -->
+    <div class="mt-5">
+        <h3>All Service Requests</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Professional</th>
+                    <th>Status</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in all_bookings %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>{{ booking.professional.username if booking.professional else 'Not Assigned' }}</td>
+                    <td>{{ booking.status }}</td>
+                    <td>Rs.{{ booking.cost }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

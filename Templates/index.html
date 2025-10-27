@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% if session['name'] %}
+    {% block content %}
+        <h1 style="text-align: center;">A-Z Household services</h1>
+        <p style="text-align:center">Welcome to the home page. Please use the navigation bar to use our services.</p>
+    {% endblock %}
+{% endif %}

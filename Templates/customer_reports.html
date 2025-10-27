@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Customer Reports{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">My Reports</h1>
+
+    <!-- Summary Section -->
+    <div class="mt-4">
+        <h3>Total Spending: Rs.{{ total_spending }}</h3>
+        <h3>Total Services: {{ total_services }}</h3>
+    </div>
+
+    <!-- Service History -->
+    <h3 class="mt-5">Completed Services</h3>
+    {% if completed_services %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Service Name</th>
+                    <th>Date Completed</th>
+                    <th>Cost</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in completed_services %}
+                <tr>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>{{ booking.date_requested }}</td>
+                    <td>Rs.{{ booking.cost }}</td> 
+                    <td>{{ booking.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No completed services to display.</p>
+    {% endif %}
+</div>
+{% endblock %}

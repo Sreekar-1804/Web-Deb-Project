@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} Admin Reports {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Admin Reports</h1>
+
+    <!-- Summary Section -->
+    <div class="mt-4">
+        <h3>Total Customers: {{ total_customers }}</h3>
+        <h3>Total Professionals: {{ total_professionals }}</h3>
+        <h3>Total Completed Services: {{ total_completed_services }}</h3>
+        <h3>Total Earnings: Rs.{{ total_earnings }}</h3>
+    </div>
+
+    <!-- Completed Services -->
+    <div class="mt-5">
+        <h3>Completed Services</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Professional</th>
+                    <th>Service</th>
+                    <th>Cost</th>
+                    <th>Date Completed</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in completed_bookings %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.professional.username if booking.professional else 'Not Assigned' }}</td>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>Rs.{{ booking.cost }}</td>
+                    <td>{{ booking.date_completed }}</td>
+                    <td>{{ booking.remarks if booking.remarks else 'No remarks provided' }}</td>
+                </tr>
+    <!-- Reviews Section -->
+    <div class="mt-5">
+        <h3>Customer Reviews</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Professional</th>
+                    <th>Rating</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review.customer.username }}</td>
+                    <td>{{ review.professional.username if review.professional else 'N/A' }}</td>
+                    <td>{{ review.rating }}/5</td>
+                    <td>{{ review.feedback if review.feedback else 'No feedback provided' }}</td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

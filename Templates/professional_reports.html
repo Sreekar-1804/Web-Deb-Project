@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Professional Reports {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Professional Reports</h1>
+
+    <!-- Summary Section -->
+    <div class="mt-4">
+        <h3>Total Earnings: Rs.{{ total_earnings }}</h3>
+        <h3>Total Completed Services: {{ total_services }}</h3>
+    </div>
+
+    <!-- Completed Bookings -->
+    <div class="mt-5">
+        <h3>Completed Bookings</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Cost</th>
+                    <th>Date Completed</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in completed_services %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>Rs.{{ booking.cost }}</td>
+                    <td>{{ booking.date_completed }}</td>
+                    <td>{{ booking.remarks if booking.remarks else 'No remarks provided' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %} Professional Dashboard {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Professional Dashboard</h1>
+
+    <!-- Pending Bookings -->
+    <div class="mt-5">
+        <h3>Pending Bookings</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Date Requested</th>
+                    <th>Remarks</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in pending_requests %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>{{ booking.date_requested }}</td>
+                    <td>{{ booking.remarks if booking.remarks else 'No remarks provided' }}</td>
+                    <td>
+                        <form action="{{ url_for('accept_booking', booking_id=booking.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                        </form>
+                        <form action="{{ url_for('reject_booking', booking_id=booking.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Accepted Bookings -->
+    <div class="mt-5">
+        <h3>Accepted Bookings</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Date Requested</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in accepted_bookings %}
+                <tr>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.service.service_name }}</td>
+                    <td>{{ booking.date_requested }}</td>
+                    <td>{{ booking.status }}</td>
+                    <td>
+                        {% if booking.status == 'accepted' %}
+                        <form action="{{ url_for('complete_booking', booking_id=booking.id) }}" method="POST">
+                            <textarea name="remarks" class="form-control" placeholder="Add remarks" rows="2"></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm mt-2">Mark as Completed</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Completed Bookings -->
+<div class="mt-5">
+    <h3>Completed Bookings</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Service</th>
+                <th>Date Completed</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in completed_bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.service.service_name }}</td>
+                <td>{{ booking.date_completed.strftime('%Y-%m-%d %H:%M') if booking.date_completed else 'N/A' }}</td>
+                <td>{{ booking.remarks if booking.remarks else 'No remarks provided' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+{% endblock %}

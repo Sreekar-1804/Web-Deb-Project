@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Search Services {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Search Services</h1>
+    <form method="POST" action="{{ url_for('search_services') }}">
+        <div class="form-group">
+            <label for="query">Enter Service Name or Location</label>
+            <input type="text" name="query" id="query" class="form-control" placeholder="e.g., Plumbing, AC Repair, etc." required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+</div>
+{% endblock %}
