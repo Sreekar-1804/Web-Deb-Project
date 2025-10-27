@@ -1,8 +1,6 @@
 # 🏠 Household Services Web Application
 
-### 📘 Modern Application Development – I Project  
-**Author:** Vanka Naga Sai Satya Sreekar  
-**Roll Number:** 23f2003415@ds.study.iitm.ac.in  
+### 📘 Modern Application Development
 
 ---
 
